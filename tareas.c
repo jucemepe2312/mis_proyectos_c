@@ -23,7 +23,7 @@ void agregar_tarea(const char *titulo) {
 
     // Validar que el título no sea NULL
     if (titulo == NULL || titulo[0] == '\0') {
-        printf("❌ Título inválido\n");
+        printf(" Título inválido\n");
         return;
     }
 
@@ -32,7 +32,7 @@ void agregar_tarea(const char *titulo) {
 
     FILE *f = fopen(nombre_archivo, "w");
     if (f == NULL) {
-        printf("❌ Error al crear el archivo: %s\n", nombre_archivo);
+        printf(" Error al crear el archivo: %s\n", nombre_archivo);
         return;
     }
 
@@ -45,7 +45,7 @@ void agregar_tarea(const char *titulo) {
 
     fclose(f);
     num_tareas++;
-    printf("✅ Tarea creada: %s\n", nombre_archivo);
+    printf(" Tarea creada: %s\n", nombre_archivo);
 }
 
 
@@ -53,14 +53,14 @@ void agregar_tarea(const char *titulo) {
 void listar_tareas() {
     DIR *dir = opendir("Tareas");
     if (dir == NULL) {
-        printf("📂 No hay tareas o la carpeta no existe\n");
-        return;   // ✅ Sin valor
+        printf(" No hay tareas o la carpeta no existe\n");
+        return;   //  Sin valor
     }
 
     struct dirent *entry;
     while ((entry = readdir(dir)) != NULL) {
         if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0) {
-            printf("📄 %s\n", entry->d_name);
+            printf(" %s\n", entry->d_name);
         }
     }
     closedir(dir);
@@ -69,7 +69,7 @@ void completar_tarea(int id) {
     // 1. Abrir la carpeta
     DIR *dir = opendir("Tareas");
     if (dir == NULL) {
-        printf("📂 No hay tareas o la carpeta no existe\n");
+        printf(" No hay tareas o la carpeta no existe\n");
         return;
     }
 
@@ -88,7 +88,7 @@ void completar_tarea(int id) {
 
     // 3. Verificar si se encontró
     if (strlen(archivo_encontrado) == 0) {
-        printf("❌ Tarea con ID %d no encontrada\n", id);
+        printf("Tarea con ID %d no encontrada\n", id);
         return;
     }
 
@@ -99,7 +99,7 @@ void completar_tarea(int id) {
     // 5. Leer el archivo y guardar en buffer
     FILE *f_lectura = fopen(ruta_completa, "r");
     if (f_lectura == NULL) {
-        printf("❌ Error al leer la tarea\n");
+        printf(" Error al leer la tarea\n");
         return;
     }
 
@@ -117,19 +117,19 @@ void completar_tarea(int id) {
     // 6. Guardar el archivo modificado
     FILE *f_escritura = fopen(ruta_completa, "w");
     if (f_escritura == NULL) {
-        printf("❌ Error al guardar la tarea\n");
+        printf(" Error al guardar la tarea\n");
         return;
     }
     fprintf(f_escritura, "%s", buffer);
     fclose(f_escritura);
 
     // 7. Mostrar mensaje de éxito
-    printf("✅ Tarea %d completada\n", id);
+    printf(" Tarea %d completada\n", id);
 }
 void ver_tareas() {
     DIR *dir = opendir("Tareas");
     if (dir == NULL) {
-        printf("📂 No hay tareas o la carpeta no existe\n");
+        printf(" No hay tareas o la carpeta no existe\n");
         return;
     }
 
@@ -168,7 +168,7 @@ int main(int argc, char *argv[]) {
         if (argc > 2) {
             agregar_tarea(argv[2]);
         } else {
-            printf("❌ Falta el título de la tarea\n");
+            printf(" Falta el título de la tarea\n");
         }
     }
     else if (strcmp(argv[1], "listar") == 0) {
@@ -182,11 +182,11 @@ int main(int argc, char *argv[]) {
             int id = atoi(argv[2]);
             completar_tarea(id);
         } else {
-            printf("❌ Falta el ID de la tarea\n");
+            printf(" Falta el ID de la tarea\n");
         }
     }
     else {
-        printf("❌ Comando desconocido: %s\n", argv[1]);
+        printf(" Comando desconocido: %s\n", argv[1]);
         printf("Comandos: agregar, listar, ver_todas, completar\n");
     }
 
